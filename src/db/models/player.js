@@ -1,5 +1,5 @@
 // Require mongoose
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 // Create a schema class
 var Schema = mongoose.Schema;
 
@@ -20,19 +20,28 @@ var PlayerSchema = new Schema({
         type: Number
     },
     projRushYds: {
-        type: Number
+        type: Number,
+        default: 0
     },
     projRushTD: {
-        type: Number
+        type: Number,
+        default: 0
     },
     projRecYds: {
-        type: Number
+        type: Number,
+        default: 0
     },
     projRecTD: {
-        type: Number
+        type: Number,
+        default: 0
     },
     projReceptions: {
-        type: Number
+        type: Number,
+        default: 0
+    },
+    date: {
+        type: String,
+        default: new Date(Date.now()).toDateString()
     }
 
 });

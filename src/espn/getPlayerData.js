@@ -1,4 +1,9 @@
-import Client from 'espn-fantasy-football-api/node.js'; // node
+// import Client from 'espn-fantasy-football-api/node.js'; // node
+// import Player from '../db/models/player.js';
+// import db from '../db/index.js';
+const Client = require('espn-fantasy-football-api/node');
+var Player = require('../db/models/player.js');
+var db = require('../db/index.js');
 
 // init client to get data from ESPN api
 const myClient = new Client.Client({ leagueId: 1807663261 });
@@ -9,11 +14,9 @@ myClient.setCookies({ espnS2: "AECTLfBetRAmtuxjYd1fspkJqAaWVrvCT3vfDZD47W7Q70eGj
 // store relevant info for each
 const freeAgents = myClient.getFreeAgents({seasonId: 2022, scoringPeriodId: 0}).then(async function (response) {
     // response.length
-    for (var i=0; i < 10; i++){
+    for (var i=0; i < 1; i++){
         const playerInfo = response[i].player;
         const projStats = response[i].projectedRawStats;
-        // console.log(response[i]);
-
         const addPlayer = {
             name: playerInfo.fullName,
             id: playerInfo.id,
@@ -27,14 +30,20 @@ const freeAgents = myClient.getFreeAgents({seasonId: 2022, scoringPeriodId: 0}).
             projRecTD: projStats.receivingTouchdowns,
             projReceptions: projStats.receivingReceptions
         }
+
+        let newPlayer = new Player(addPlayer);
+        await newPlayer.save();
+
         console.log(addPlayer.name);
-        console.log(addPlayer.ADP);
-        // console.log(addPlayer);
+        // console.log(addPlayer.ADP);
     }
 }).catch(error => {
     console.log(error);
 });
 
-
+// TODO: quit process after new player saved
+// TODO: separate backend process to run after getPlayerData 
+//      which checks each unique player by "id" and computes changes in
+//      projections and/or ADP
 
 
