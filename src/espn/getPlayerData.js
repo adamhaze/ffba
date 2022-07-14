@@ -14,7 +14,8 @@ myClient.setCookies({ espnS2: "AECTLfBetRAmtuxjYd1fspkJqAaWVrvCT3vfDZD47W7Q70eGj
 // store relevant info for each
 const freeAgents = myClient.getFreeAgents({seasonId: 2022, scoringPeriodId: 0}).then(async function (response) {
     // response.length
-    for (var i=0; i < 1; i++){
+    await Player.deleteMany({});
+    for (var i=0; i < 5; i++){
         const playerInfo = response[i].player;
         const projStats = response[i].projectedRawStats;
         const addPlayer = {
@@ -34,16 +35,11 @@ const freeAgents = myClient.getFreeAgents({seasonId: 2022, scoringPeriodId: 0}).
         let newPlayer = new Player(addPlayer);
         await newPlayer.save();
 
-        console.log(addPlayer.name);
-        // console.log(addPlayer.ADP);
     }
+    console.log('ESPN player data collected...');
+    process.exit();
 }).catch(error => {
     console.log(error);
 });
-
-// TODO: quit process after new player saved
-// TODO: separate backend process to run after getPlayerData 
-//      which checks each unique player by "id" and computes changes in
-//      projections and/or ADP
 
 
