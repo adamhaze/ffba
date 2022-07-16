@@ -13,14 +13,13 @@ myClient.setCookies({ espnS2: "AECTLfBetRAmtuxjYd1fspkJqAaWVrvCT3vfDZD47W7Q70eGj
 // get all fantasy players via free agents from private league that will never draft
 // store relevant info for each
 const freeAgents = myClient.getFreeAgents({seasonId: 2022, scoringPeriodId: 0}).then(async function (response) {
-    // response.length
-    await Player.deleteMany({});
-    for (var i=0; i < 5; i++){
+    // await Player.deleteMany({});
+    for (var i=0; i < response.length; i++){
         const playerInfo = response[i].player;
         const projStats = response[i].projectedRawStats;
         const addPlayer = {
             name: playerInfo.fullName,
-            id: playerInfo.id,
+            playerId: playerInfo.id,
             team: playerInfo.proTeamAbbreviation,
             ADP: playerInfo.averageDraftPosition,
             owned: playerInfo.percentOwned,
@@ -43,3 +42,5 @@ const freeAgents = myClient.getFreeAgents({seasonId: 2022, scoringPeriodId: 0}).
 });
 
 
+// Hidden ESPN API endpoints (news!)
+// https://gist.github.com/akeaswaran/b48b02f1c94f873c6655e7129910fc3b

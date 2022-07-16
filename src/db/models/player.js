@@ -7,7 +7,7 @@ var PlayerSchema = new Schema({
     name: {
         type: String
     },
-    id: {
+    playerId: {
         type: Number
     },
     team: { 
