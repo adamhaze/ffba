@@ -9,9 +9,9 @@ const fs = require('fs');
 let espnPlayers = '/Users/adamhayes/ws_home/projects/fantasyfb-analysis/src/espn/espn_player_ids.txt'
 const playerMap = fs.readFile(espnPlayers, 'utf8', (err, data) => {
     if (err) throw err;
-    let temp = data.split('\n');
-    for(var i=0; i < 1; i++){
-        let player = temp[i].split(',');
+    let playerListUnq = data.split('\n'); // list of each indiv player in ESPN database ['name, playerId']
+    for(var i=0; i < playerListUnq.length; i++){
+        let player = playerListUnq[i].split(',');
         let query = {'name': player[0], 'playerId': parseInt(player[1].trim())};
         Player.find(query).exec(async function(err, response){
             if (err) throw err;
