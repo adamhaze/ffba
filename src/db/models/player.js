@@ -15,9 +15,9 @@ var PlayerSchema = new Schema({
     projRecTD: { type: Number, default: 0 },
     projReceptions: { type: Number, default: 0 },
     date: { type: String, default: new Date(Date.now()).toDateString() },
-    cADP1day: { type: Number, default: 0 }, // change in ADP stats
+    cADPOvr: { type: Number, default: 0 },// change in ADP stats
+    cADP1day: { type: Number, default: 0 },
     cADP7day: { type: Number, default: 0 },
-    cADPOvr: { type: Number, default: 0 },
     cOwnOvr: { type: Number, default: 0}, // change in ownership percentage
     cProjRushYds: { type: Number, default: 0}, // change in projections (overall)
     cProjRushTD: { type: Number, default: 0},

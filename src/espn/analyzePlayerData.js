@@ -17,32 +17,56 @@ const playerMap = fs.readFile(espnPlayers, 'utf8', (err, data) => {
             if (err) throw err;
             
             // current day would be player at response[response.length-1]
-            // compute change of each stat over 1 day and 7 days
-            // can you just do Player[cADP1day] = response[n].adp - response[n-1].adp 
-            //    -- asigning new properties to an object
-            // then just write it back to the database (findOneAndUpdate(by playerId and date?))
             let n = response.length-1;
-            let playerUpdate = response[n];
             let query = {'name': response[n].name, 'date': response[n].date};
-            playerUpdate['changeADP'] = 1; // difference
-            console.log(query);
 
-            let doc = await Player.findOneAndUpdate(query, {changeADP: 1}, {upsert: true});
-            console.log(playerUpdate);
-            
-            // process.exit();
-        })
+            // initialize an update object with only the 'new' stats
+            let playerUpdate = {
+                cADPOvr: 0,
+                cADP1day: 0,
+                cADP7day: 0,
+                cOwnOvr: 0,
+                cProjRushYds: 0,
+                cProjRushTD: 0,
+                cProjRecYds: 0,
+                cProjRecTD: 0,
+                cProjReceptions: 0,
+                cProjRushYds7day: 0,
+                cProjRushTD7day: 0,
+                cProjRecYds7day: 0,
+                cProjRecTD7day: 0,
+                cProjReceptions7day: 0
+            };
+
+            // compute overall stat changes
+            playerUpdate.cADPOvr = (response[0].ADP - response[n].ADP); // -adpChange = falling, +adpChange = rising
+            playerUpdate.cOwnOvr = (response[0].owned - response[n].owned);
+            playerUpdate.cProjRushYds = (response[0].projRushYds - response[n].projRushYds);
+            playerUpdate.cProjRushTD = (response[0].projRushTD - response[n].projRushTD);
+            playerUpdate.cProjRecYds = (response[0].projRecYds - response[n].projRecYds);
+            playerUpdate.cProjRecTD = (response[0].projRecTD - response[n].projRecTD);
+            playerUpdate.cProjReceptions = (response[0].projReceptions - response[n].projReceptions);
+
+            // if at least 1
+            if (n >= 1){
+                let adpChange1day = (response[n-1].ADP - response[n].ADP);
+            }
+            // if at least 7
+            if (n >= 6) {
+                let adpChange7day = (response[n-7].ADP - response[n].ADP);
+                let cProjRushYds7day = (response[n-7].projRushYds - response[n].projRushYds);
+                let cProjRushTD7day = (response[n-7].projRushTD - response[n].projRushTD);
+                let cProjRecYds7day = (response[n-7].projRecYds - response[n].projRecYds);
+                let cProjRecTD7day = (response[n-7].projRecTD - response[n].projRecTD);
+                let cProjReceptions7day = (response[n-7].projReceptions - response[n].projReceptions);
+            }
+
+            let doc = await Player.findOneAndUpdate(query, playerUpdate, {upsert: true});
+            process.exit();
+        });
     }
 
 });
-
-
-// query = {'playerId': 4242335};
-// Player.find(query).exec(function(err, result){
-//     if (err) throw err;
-//     console.log(result);
-// });
-
 
 // Player.find({}).exec(function(err, result){
 //     if (err) throw err;
