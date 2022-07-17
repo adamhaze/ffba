@@ -4,49 +4,31 @@ const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var PlayerSchema = new Schema({
-    name: {
-        type: String
-    },
-    playerId: {
-        type: Number
-    },
-    team: { 
-        type: String 
-    },
-    ADP: { 
-        type: Number 
-    },
-    owned: {
-        type: Number
-    },
-    projRushYds: {
-        type: Number,
-        default: 0
-    },
-    projRushTD: {
-        type: Number,
-        default: 0
-    },
-    projRecYds: {
-        type: Number,
-        default: 0
-    },
-    projRecTD: {
-        type: Number,
-        default: 0
-    },
-    projReceptions: {
-        type: Number,
-        default: 0
-    },
-    date: {
-        type: String,
-        default: new Date(Date.now()).toDateString()
-    },
-    changeADP: {
-        type: Number,
-        default: 0
-    }
+    name: { type: String },
+    playerId: { type: Number },
+    team: {  type: String  },
+    ADP: {  type: Number  },
+    owned: { type: Number },
+    projRushYds: { type: Number, default: 0 },
+    projRushTD: { type: Number, default: 0 },
+    projRecYds: { type: Number, default: 0 },
+    projRecTD: { type: Number, default: 0 },
+    projReceptions: { type: Number, default: 0 },
+    date: { type: String, default: new Date(Date.now()).toDateString() },
+    cADP1day: { type: Number, default: 0 }, // change in ADP stats
+    cADP7day: { type: Number, default: 0 },
+    cADPOvr: { type: Number, default: 0 },
+    cOwnOvr: { type: Number, default: 0}, // change in ownership percentage
+    cProjRushYds: { type: Number, default: 0}, // change in projections (overall)
+    cProjRushTD: { type: Number, default: 0},
+    cProjRecYds: { type: Number, default: 0},
+    cProjRecTD: { type: Number, default: 0},
+    cProjReceptions: { type: Number, default: 0},
+    cProjRushYds7day: { type: Number, default: 0}, // change in projections (week long)
+    cProjRushTD7day: { type: Number, default: 0},
+    cProjRecYds7day: { type: Number, default: 0},
+    cProjRecTD7day: { type: Number, default: 0},
+    cProjReceptions7day: { type: Number, default: 0}
 
 });
 
