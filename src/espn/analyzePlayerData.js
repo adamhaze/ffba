@@ -13,9 +13,24 @@ const playerMap = fs.readFile(espnPlayers, 'utf8', (err, data) => {
     for(var i=0; i < 1; i++){
         let player = temp[i].split(',');
         let query = {'name': player[0], 'playerId': parseInt(player[1].trim())};
-        Player.find(query).exec(function(err, response){
+        Player.find(query).exec(async function(err, response){
             if (err) throw err;
-            console.log(response);
+            
+            // current day would be player at response[response.length-1]
+            // compute change of each stat over 1 day and 7 days
+            // can you just do Player[cADP1day] = response[n].adp - response[n-1].adp 
+            //    -- asigning new properties to an object
+            // then just write it back to the database (findOneAndUpdate(by playerId and date?))
+            let n = response.length-1;
+            let playerUpdate = response[n];
+            let query = {'name': response[n].name, 'date': response[n].date};
+            playerUpdate['changeADP'] = 1; // difference
+            console.log(query);
+
+            let doc = await Player.findOneAndUpdate(query, {changeADP: 1}, {upsert: true});
+            console.log(playerUpdate);
+            
+            // process.exit();
         })
     }
 

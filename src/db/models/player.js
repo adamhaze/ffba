@@ -42,6 +42,10 @@ var PlayerSchema = new Schema({
     date: {
         type: String,
         default: new Date(Date.now()).toDateString()
+    },
+    changeADP: {
+        type: Number,
+        default: 0
     }
 
 });
