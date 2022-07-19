@@ -8,6 +8,7 @@ async function scrape(){
     // successfully gets first ranking for Jonathan Taylor... yay
     await page.goto('https://www.fantasypros.com/nfl/fantasy-football-rankings.php');
     var element = await page.waitForSelector('#ranking-table > tbody > tr:nth-child(1) > td:nth-child(3)');
+    // td:nth-child(2) would be player info(name)
     var text = await page.evaluate(element => element.textContent, element);
     console.log(text);
     process.exit();
