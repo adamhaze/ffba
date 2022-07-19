@@ -21,7 +21,7 @@ const playerMap = fs.readFile(espnPlayers, 'utf8', (err, data) => {
             let query = {'name': response[n].name, 'date': response[n].date};
 
             // 
-            // each player gets carbon copy of stats for each platform (ESPN, Sleeper, Yahoo, etc...)
+            // each player gets carbon copy of stats for each platform (ESPN, Sleeper, Yahoo, etc... -- subclasses?)
             // collect player data and write to db separately for each platform
             // analyzePlayerData should then compute the updates for each stat over each platform
             // as well as add data for cross-platform differences (LOT of columns)
