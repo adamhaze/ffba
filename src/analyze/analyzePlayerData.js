@@ -45,7 +45,7 @@ const playerMap = fs.readFile(espnPlayers, 'utf8', (err, data) => {
             };
 
             // compute overall stat changes
-            // TODO find neater way to do this (map?)
+            // TODO: find neater way to do this (map?)
             playerUpdate.cADPOvr = (response[0].ADP - response[n].ADP); // -adpChange = falling, +adpChange = rising
             playerUpdate.cOwnOvr = (response[0].owned - response[n].owned);
             playerUpdate.cProjRushYds = (response[0].projRushYds - response[n].projRushYds);

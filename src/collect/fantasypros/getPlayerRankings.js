@@ -15,30 +15,20 @@ async function scrape(){
         let nameQuery = await page.waitForSelector(`#ranking-table > tbody > tr:nth-child(${i}) > td.player__cell.sticky-cell.sticky-cell-two > div > div.player__name > span.everything-but-mobile.js-sort-field`);
         var name = await page.evaluate(nameQuery => nameQuery.textContent, nameQuery);
         console.log(name);
-        // TODO: make temp player object to store fantasy pros rankings
-        //       findOneAndUpdate at end of rankings iteration
-
 
         // iterate through each ranking for each player
+        let ranks = new Array(5);
         for (var j=3; j<=7; j++){
             let rankQuery = await page.waitForSelector(`#ranking-table > tbody > tr:nth-child(${i}) > td:nth-child(${j})`);
-            var rank = await page.evaluate(rankQuery => rankQuery.textContent, rankQuery);
-            console.log(rank);
-        }
-            
-            // let temp = 0;
-            // await Player.findOneAndUpdate({name: name, date: temp}, )
-
-            // TODO:
-            // map column number to expert
-            // add expert rank stats to Player model
-
+            ranks[j-3] = await page.evaluate(rankQuery => rankQuery.textContent, rankQuery);
+            console.log(ranks);
+        };
+        let playerUpdate = {rankFPBrown:ranks[0], rankFPErickson:ranks[1], rankFPFitz:ranks[2], rankFPFreedman:ranks[3], rankFPPisapia:ranks[3]};
+        
+        // TODO: query player by name and today's date, update rankings
+        let temp = 0;
+        await Player.findOneAndUpdate({name: name, date: temp}, )
     }
-    
-    
-
-    // td:nth-child(2) would be player info(name)
-    
     process.exit();
 }
 
