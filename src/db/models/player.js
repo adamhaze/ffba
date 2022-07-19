@@ -28,7 +28,12 @@ var PlayerSchema = new Schema({
     cProjRushTD7day: { type: Number, default: 0},
     cProjRecYds7day: { type: Number, default: 0},
     cProjRecTD7day: { type: Number, default: 0},
-    cProjReceptions7day: { type: Number, default: 0}
+    cProjReceptions7day: { type: Number, default: 0},
+    rankFPBrown: {type: Number, default: 0}, // rankings features
+    rankFPErickson: {type: Number, default: 0},
+    rankFPFitz: {type: Number, default: 0},
+    rankFPFreedman: {type: Number, default: 0},
+    rankFPPisapia: {type: Number, default: 0}
 
 });
 
