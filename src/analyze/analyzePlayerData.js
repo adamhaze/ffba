@@ -7,8 +7,8 @@ const Player = require('../db/models/player.js');
 const Change = require('../db/models/change.js');
 const fs = require('fs');
 
-let espnPlayers = '/Users/adamhayes/ws_home/projects/fantasyfb-analysis/src/espn/espn_player_ids.txt'
-const playerMap = fs.readFile(espnPlayers, 'utf8', (err, data) => {
+let espnPlayers = '/Users/adamhayes/ws_home/projects/fantasyfb-analysis/src/collect/espn/espn_player_ids.txt'
+const playerMap = fs.readFile(espnPlayers, 'utf8', async function (err, data) {
     if (err) throw err;
     let playerListUnq = data.split('\n'); // list of each indiv player in ESPN database ['name, playerId']
     for(var i=0; i < playerListUnq.length; i++){
@@ -20,11 +20,14 @@ const playerMap = fs.readFile(espnPlayers, 'utf8', (err, data) => {
             // current day would be player at response[response.length-1]
             let n = response.length-1;
             let query = {'name': response[n].name, 'date': response[n].date};
+            console.log(query);
 
             // TODO: test analyzePlayerData w/ new format
 
             // initialize an update object with only the 'new' stats
-            let playerUpdate = {
+            let playerUpdateTemp = {
+                name: response[n].name,
+                date: response[n].date,
                 ADPOvr: (response[0].ADP - response[n].ADP),
                 ADP1day: n >= 1 ? (response[n-1].ADP - response[n].ADP) : 0,
                 ADP7day: n >= 6 ? (response[n-6].ADP - response[n].ADP) : 0,
@@ -40,6 +43,9 @@ const playerMap = fs.readFile(espnPlayers, 'utf8', (err, data) => {
                 projRecTD7day: n >= 6 ? (response[n-6].projRecTD - response[n].projRecTD) : 0,
                 projReceptions7day: n >= 6 ? (response[n-6].projReceptions - response[n].projReceptions) : 0
             };
+
+            let playerUpdate = new Change(playerUpdateTemp);
+            await playerUpdate.save();
 
             // compute overall stat changes
             // playerUpdate.cADPOvr = (response[0].ADP - response[n].ADP); // -adpChange = falling, +adpChange = rising
@@ -65,7 +71,7 @@ const playerMap = fs.readFile(espnPlayers, 'utf8', (err, data) => {
             // }
 
             // TODO: determine to use findOneAndUpdate or just save()
-            await Change.findOneAndUpdate(query, playerUpdate, {upsert: true});
+            // await Change.findOneAndUpdate(query, playerUpdate, {upsert: true});
             process.exit();
         });
     }

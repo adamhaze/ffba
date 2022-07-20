@@ -29,7 +29,7 @@ const freeAgents = myClient.getFreeAgents({seasonId: 2022, scoringPeriodId: 0}).
             projRecYds: projStats.receivingYards,
             projRecTD: projStats.receivingTouchdowns,
             projReceptions: projStats.receivingReceptions
-        }
+        };
 
         let newPlayer = new Player(addPlayer);
         await newPlayer.save();

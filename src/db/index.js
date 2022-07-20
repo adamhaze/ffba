@@ -27,9 +27,3 @@ db.once('open', () => {
 
 module.exports = db;
 // export default db;
-
-
-// TODO: 
-// https://www.tutsmake.com/insert-data-into-mongodb-using-node-js/
-// create an express app and see what it looks like
-// create Player data tables (maybe divide into historical vs current day?)

@@ -31,7 +31,7 @@ var PlayerChangeSchema = new Schema({
 PlayerChangeSchema.index({ '$**$': 'text' });
 
 // Create the Player model
-var Change = mongoose.model("Player", PlayerChangeSchema);
+var Change = mongoose.model("Change", PlayerChangeSchema);
 
 // Export the Player model
 module.exports = Change;
