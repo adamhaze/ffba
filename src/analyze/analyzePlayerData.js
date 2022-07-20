@@ -20,55 +20,52 @@ const playerMap = fs.readFile(espnPlayers, 'utf8', (err, data) => {
             let n = response.length-1;
             let query = {'name': response[n].name, 'date': response[n].date};
 
-            // 
-            // each player gets carbon copy of stats for each platform (ESPN, Sleeper, Yahoo, etc... -- subclasses?)
-            // collect player data and write to db separately for each platform
-            // analyzePlayerData should then compute the updates for each stat over each platform
-            // as well as add data for cross-platform differences (LOT of columns)
+            // TODO: make separate mongoose model schema for PlayerChange
+            // store all change in stats/rankings for each player with their name and date
 
             // initialize an update object with only the 'new' stats
             let playerUpdate = {
-                cADPOvr: 0,
-                cADP1day: 0,
-                cADP7day: 0,
-                cOwnOvr: 0,
-                cProjRushYds: 0,
-                cProjRushTD: 0,
-                cProjRecYds: 0,
-                cProjRecTD: 0,
-                cProjReceptions: 0,
-                cProjRushYds7day: 0,
-                cProjRushTD7day: 0,
-                cProjRecYds7day: 0,
-                cProjRecTD7day: 0,
-                cProjReceptions7day: 0
+                cADPOvr: (response[0].ADP - response[n].ADP),
+                cADP1day: n >= 1 ? (response[n-1].ADP - response[n].ADP) : 0,
+                cADP7day: n >= 6 ? (response[n-6].ADP - response[n].ADP) : 0,
+                cOwnOvr: (response[0].owned - response[n].owned),
+                cProjRushYds: (response[0].projRushYds - response[n].projRushYds),
+                cProjRushTD: (response[0].projRushTD - response[n].projRushTD),
+                cProjRecYds: (response[0].projRecYds - response[n].projRecYds),
+                cProjRecTD: (response[0].projRecTD - response[n].projRecTD),
+                cProjReceptions: (response[0].projReceptions - response[n].projReceptions),
+                cProjRushYds7day: n >= 6 ? (response[n-6].projRushYds - response[n].projRushYds) : 0,
+                cProjRushTD7day: n >= 6 ? (response[n-6].projRushTD - response[n].projRushTD) : 0,
+                cProjRecYds7day: n >= 6 ? (response[n-6].projRecYds - response[n].projRecYds) : 0,
+                cProjRecTD7day: n >= 6 ? (response[n-6].projRecTD - response[n].projRecTD) : 0,
+                cProjReceptions7day: n >= 6 ? (response[n-6].projReceptions - response[n].projReceptions) : 0
+
             };
 
             // compute overall stat changes
-            // TODO: find neater way to do this (map?)
-            playerUpdate.cADPOvr = (response[0].ADP - response[n].ADP); // -adpChange = falling, +adpChange = rising
-            playerUpdate.cOwnOvr = (response[0].owned - response[n].owned);
-            playerUpdate.cProjRushYds = (response[0].projRushYds - response[n].projRushYds);
-            playerUpdate.cProjRushTD = (response[0].projRushTD - response[n].projRushTD);
-            playerUpdate.cProjRecYds = (response[0].projRecYds - response[n].projRecYds);
-            playerUpdate.cProjRecTD = (response[0].projRecTD - response[n].projRecTD);
-            playerUpdate.cProjReceptions = (response[0].projReceptions - response[n].projReceptions);
+            // playerUpdate.cADPOvr = (response[0].ADP - response[n].ADP); // -adpChange = falling, +adpChange = rising
+            // playerUpdate.cOwnOvr = (response[0].owned - response[n].owned);
+            // playerUpdate.cProjRushYds = (response[0].projRushYds - response[n].projRushYds);
+            // playerUpdate.cProjRushTD = (response[0].projRushTD - response[n].projRushTD);
+            // playerUpdate.cProjRecYds = (response[0].projRecYds - response[n].projRecYds);
+            // playerUpdate.cProjRecTD = (response[0].projRecTD - response[n].projRecTD);
+            // playerUpdate.cProjReceptions = (response[0].projReceptions - response[n].projReceptions);
 
             // if at least 1
-            if (n >= 1){
-                let adpChange1day = (response[n-1].ADP - response[n].ADP);
-            }
+            // if (n >= 1){
+            //     let adpChange1day = (response[n-1].ADP - response[n].ADP);
+            // }
             // if at least 7
-            if (n >= 6) {
-                let adpChange7day = (response[n-7].ADP - response[n].ADP);
-                let cProjRushYds7day = (response[n-7].projRushYds - response[n].projRushYds);
-                let cProjRushTD7day = (response[n-7].projRushTD - response[n].projRushTD);
-                let cProjRecYds7day = (response[n-7].projRecYds - response[n].projRecYds);
-                let cProjRecTD7day = (response[n-7].projRecTD - response[n].projRecTD);
-                let cProjReceptions7day = (response[n-7].projReceptions - response[n].projReceptions);
-            }
+            // if (n >= 6) {
+            //     let adpChange7day = (response[n-7].ADP - response[n].ADP);
+            //     let cProjRushYds7day = (response[n-7].projRushYds - response[n].projRushYds);
+            //     let cProjRushTD7day = (response[n-7].projRushTD - response[n].projRushTD);
+            //     let cProjRecYds7day = (response[n-7].projRecYds - response[n].projRecYds);
+            //     let cProjRecTD7day = (response[n-7].projRecTD - response[n].projRecTD);
+            //     let cProjReceptions7day = (response[n-7].projReceptions - response[n].projReceptions);
+            // }
 
-            let doc = await Player.findOneAndUpdate(query, playerUpdate, {upsert: true});
+            await Player.findOneAndUpdate(query, playerUpdate, {upsert: true});
             process.exit();
         });
     }
