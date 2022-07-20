@@ -5,25 +5,15 @@
 var db = require('../db/index.js');
 const Player = require('../db/models/player.js');
 const Change = require('../db/models/change.js');
-const fs = require('fs');
-
-// Player.find({}).then(async function(response){
-//     console.log(response.length);
-// }).catch(error => {
-//     console.log(error);
-// });
+var playerList = require('../collect/espn/util/playerList.js');
 
 // TODO: make this whole thing an async function
 // TODO: figure out how to not just save new players each time, but update 
 // (maybe delete all and start over every time?)
-
-let espnPlayers = '/Users/adamhayes/ws_home/projects/fantasyfb-analysis/src/collect/espn/espn_player_ids.txt'
-const playerMap = fs.readFile(espnPlayers, 'utf8', async function (err, data) {
+async function analyzePlayerData(){
     await Change.deleteMany({});
-    if (err) throw err;
-    let playerListUnq = data.split('\n'); // list of each indiv player in ESPN database ['name, playerId']
-    for(var i=0; i < playerListUnq.length; i++){
-        let player = playerListUnq[i].split(',');
+    for(var i=0; i < playerList.length; i++){
+        let player = playerList[i].split(',');
         let query = {'name': player[0], 'playerId': parseInt(player[1].trim())};
         await Player.find(query).then(async function(response){
             // current day would be player at response[response.length-1]
@@ -46,46 +36,35 @@ const playerMap = fs.readFile(espnPlayers, 'utf8', async function (err, data) {
                     projRushTD7day: n >= 6 ? (response[n-6].projRushTD - response[n].projRushTD) : 0,
                     projRecYds7day: n >= 6 ? (response[n-6].projRecYds - response[n].projRecYds) : 0,
                     projRecTD7day: n >= 6 ? (response[n-6].projRecTD - response[n].projRecTD) : 0,
-                    projReceptions7day: n >= 6 ? (response[n-6].projReceptions - response[n].projReceptions) : 0
-                };
+                    projReceptions7day: n >= 6 ? (response[n-6].projReceptions - response[n].projReceptions) : 0,
 
+                    rankFPBrown: (response[0].rankFPBrown - response[n].rankFPBrown),
+                    rankFPErickson: (response[0].rankFPErickson - response[n].rankFPErickson),
+                    rankFPFitz: (response[0].rankFPFitz - response[n].rankFPFitz),
+                    rankFPFreedman: (response[0].rankFPFreedman - response[n].rankFPFreedman),
+                    rankFPPisapia: (response[0].rankFPPisapia - response[n].rankFPPisapia),
+
+                    rankFPBrown1day: n >= 1 ? (response[0].rankFPBrown1day - response[n].rankFPBrown1day) : 0,
+                    rankFPErickson1day: n >= 1 ? (response[0].rankFPErickson1day - response[n].rankFPErickson1day) : 0,
+                    rankFPFitz1day: n >= 1 ? (response[0].rankFPFitz1day - response[n].rankFPFitz1day) : 0,
+                    rankFPFreedman1day: n >= 1 ? (response[0].rankFPFreedman1day - response[n].rankFPFreedman1day) : 0,
+                    rankFPPisapia1day: n >= 1 ? (response[0].rankFPPisapia1day - response[n].rankFPPisapia1day) : 0
+                };
                 let playerUpdate = new Change(playerUpdateTemp);
                 await playerUpdate.save();
             };
-
-            // compute overall stat changes
-            // playerUpdate.cADPOvr = (response[0].ADP - response[n].ADP); // -adpChange = falling, +adpChange = rising
-            // playerUpdate.cOwnOvr = (response[0].owned - response[n].owned);
-            // playerUpdate.cProjRushYds = (response[0].projRushYds - response[n].projRushYds);
-            // playerUpdate.cProjRushTD = (response[0].projRushTD - response[n].projRushTD);
-            // playerUpdate.cProjRecYds = (response[0].projRecYds - response[n].projRecYds);
-            // playerUpdate.cProjRecTD = (response[0].projRecTD - response[n].projRecTD);
-            // playerUpdate.cProjReceptions = (response[0].projReceptions - response[n].projReceptions);
-
-            // if at least 1
-            // if (n >= 1){
-            //     let adpChange1day = (response[n-1].ADP - response[n].ADP);
-            // }
-            // if at least 7
-            // if (n >= 6) {
-            //     let adpChange7day = (response[n-7].ADP - response[n].ADP);
-            //     let cProjRushYds7day = (response[n-7].projRushYds - response[n].projRushYds);
-            //     let cProjRushTD7day = (response[n-7].projRushTD - response[n].projRushTD);
-            //     let cProjRecYds7day = (response[n-7].projRecYds - response[n].projRecYds);
-            //     let cProjRecTD7day = (response[n-7].projRecTD - response[n].projRecTD);
-            //     let cProjReceptions7day = (response[n-7].projReceptions - response[n].projReceptions);
-            // }
-
-            // TODO: determine to use findOneAndUpdate or just save()
-            // await Change.findOneAndUpdate(query, playerUpdate, {upsert: true});
-            // process.exit();
         }).catch(error => {
             console.log(error);
         });
-    }
+    };
     process.exit();
+};
+analyzePlayerData();
 
-});
+
+
+
+
 
 // Player.find({}).exec(function(err, result){
 //     if (err) throw err;

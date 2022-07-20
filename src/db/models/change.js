@@ -20,11 +20,18 @@ var PlayerChangeSchema = new Schema({
     projRecYds7day: { type: Number, default: 0},
     projRecTD7day: { type: Number, default: 0},
     projReceptions7day: { type: Number, default: 0},
-    rankFPBrown: {type: Number, default: 0}, // change in rankings 
+
+    rankFPBrown: {type: Number, default: 0}, // change in rankings overall (Fantasy Pros)
     rankFPErickson: {type: Number, default: 0},
     rankFPFitz: {type: Number, default: 0},
     rankFPFreedman: {type: Number, default: 0},
-    rankFPPisapia: {type: Number, default: 0}
+    rankFPPisapia: {type: Number, default: 0},
+
+    rankFPBrown1day: {type: Number, default: 0}, // 1 day change in rankings
+    rankFPErickson1day: {type: Number, default: 0},
+    rankFPFitz1day: {type: Number, default: 0},
+    rankFPFreedman1day: {type: Number, default: 0},
+    rankFPPisapia1day: {type: Number, default: 0}
 
 });
 
