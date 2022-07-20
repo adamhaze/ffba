@@ -23,7 +23,7 @@ async function scrape(){
             ranks[j-3] = await page.evaluate(rankQuery => rankQuery.textContent, rankQuery);
             if (ranks[j-3] == '-'){ ranks[j-3] = -1};
         };
-        let playerUpdate = {rankFPBrown:ranks[0], rankFPErickson:ranks[1], rankFPFitz:ranks[2], rankFPFreedman:ranks[3], rankFPPisapia:ranks[3]};
+        let playerUpdate = {rankFPBrown:ranks[0], rankFPErickson:ranks[1], rankFPFitz:ranks[2], rankFPFreedman:ranks[3], rankFPPisapia:ranks[4]};
         
         // Update Player in database with new rankings
         await Player.findOneAndUpdate({name: name, date: new Date(Date.now()).toDateString()}, playerUpdate, {upsert: true});
