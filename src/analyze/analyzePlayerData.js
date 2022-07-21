@@ -3,16 +3,21 @@
 //      projections and/or ADP
 
 var db = require('../db/index.js');
-const Player = require('../db/models/player.js');
-const StatTracker = require('../db/models/statTracker.js');
+var Player = require('../db/models/player.js');
+var StatTracker = require('../db/models/statTracker.js');
 var RanksTracker = require('../db/models/ranksTracker.js');
 var playerList = require('../collect/espn/util/playerList.js');
+
 
 async function analyzePlayerData(){
     await StatTracker.deleteMany({});
     for(var i=0; i < playerList.length; i++){
         let player = playerList[i].split(',');
         let query = {'name': player[0], 'playerId': parseInt(player[1].trim())};
+
+        // TODO: pass query into analyzePlayerStats() and analyzePlayerRanks()
+
+
         await Player.find(query).then(async function(response){
             // current day would be player at response[response.length-1]
             let n = response.length-1;
