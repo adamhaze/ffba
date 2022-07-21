@@ -4,14 +4,12 @@
 
 var db = require('../db/index.js');
 const Player = require('../db/models/player.js');
-const Change = require('../db/models/change.js');
+const StatTracker = require('../db/models/statTracker.js');
+var RanksTracker = require('../db/models/ranksTracker.js');
 var playerList = require('../collect/espn/util/playerList.js');
 
-// TODO: make this whole thing an async function
-// TODO: figure out how to not just save new players each time, but update 
-// (maybe delete all and start over every time?)
 async function analyzePlayerData(){
-    await Change.deleteMany({});
+    await StatTracker.deleteMany({});
     for(var i=0; i < playerList.length; i++){
         let player = playerList[i].split(',');
         let query = {'name': player[0], 'playerId': parseInt(player[1].trim())};
@@ -20,7 +18,7 @@ async function analyzePlayerData(){
             let n = response.length-1;
             if (n >= 0){
                 // initialize an update object with only the 'new' stats
-                let playerUpdateTemp = {
+                let statTrackerUpdate = {
                     name: response[n].name,
                     date: response[n].date,
                     ADPOvr: (response[0].ADP - response[n].ADP),
@@ -37,7 +35,8 @@ async function analyzePlayerData(){
                     projRecYds7day: n >= 6 ? (response[n-6].projRecYds - response[n].projRecYds) : 0,
                     projRecTD7day: n >= 6 ? (response[n-6].projRecTD - response[n].projRecTD) : 0,
                     projReceptions7day: n >= 6 ? (response[n-6].projReceptions - response[n].projReceptions) : 0,
-
+                };
+                let ranksTrackerUpdate = {
                     rankFPBrown: (response[0].rankFPBrown - response[n].rankFPBrown),
                     rankFPErickson: (response[0].rankFPErickson - response[n].rankFPErickson),
                     rankFPFitz: (response[0].rankFPFitz - response[n].rankFPFitz),
@@ -50,8 +49,10 @@ async function analyzePlayerData(){
                     rankFPFreedman1day: n >= 1 ? (response[0].rankFPFreedman1day - response[n].rankFPFreedman1day) : 0,
                     rankFPPisapia1day: n >= 1 ? (response[0].rankFPPisapia1day - response[n].rankFPPisapia1day) : 0
                 };
-                let playerUpdate = new Change(playerUpdateTemp);
-                await playerUpdate.save();
+                let statsUpdate = new StatTracker(statTrackerUpdate);
+                let ranksUpdate = new RanksTracker(ranksTrackerUpdate);
+                await statsUpdate.save();
+                await ranksUpdate.save();
             };
         }).catch(error => {
             console.log(error);

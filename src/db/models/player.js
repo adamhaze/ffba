@@ -14,12 +14,7 @@ var PlayerSchema = new Schema({
     projRecYds: { type: Number, default: 0 },
     projRecTD: { type: Number, default: 0 },
     projReceptions: { type: Number, default: 0 },
-    date: { type: String, default: new Date(Date.now()).toDateString() },
-    rankFPBrown: {type: Number, default: 0}, // rankings features
-    rankFPErickson: {type: Number, default: 0},
-    rankFPFitz: {type: Number, default: 0},
-    rankFPFreedman: {type: Number, default: 0},
-    rankFPPisapia: {type: Number, default: 0}
+    date: { type: String, default: new Date(Date.now()).toDateString() }
 });
 
 PlayerSchema.index({ '$**$': 'text' });
