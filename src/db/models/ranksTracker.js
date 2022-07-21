@@ -17,7 +17,19 @@ var RankTrackerSchema = new Schema({
     rankFPErickson1day: {type: Number, default: 0},
     rankFPFitz1day: {type: Number, default: 0},
     rankFPFreedman1day: {type: Number, default: 0},
-    rankFPPisapia1day: {type: Number, default: 0}
+    rankFPPisapia1day: {type: Number, default: 0},
+
+    rankYahooBehrens: {type: Number, default: 0}, // Yahoo rankings (overall)
+    rankYahooPianowski: {type: Number, default: 0},
+    rankYahooDelDon: {type: Number, default: 0},
+    rankYahooLoza: {type: Number, default: 0},
+    rankYahooHarmon: {type: Number, default: 0},
+
+    rankYahooBehrens1day: {type: Number, default: 0}, // Yahoo rankings (1 day)
+    rankYahooPianowski1day: {type: Number, default: 0},
+    rankYahooDelDon1day: {type: Number, default: 0},
+    rankYahooLoza1day: {type: Number, default: 0},
+    rankYahooHarmon1day: {type: Number, default: 0}
 
 });
 
