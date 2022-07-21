@@ -29,9 +29,6 @@ async function analyzePlayerRankings(query){
     }).catch(error => {
         console.log(error);
     });
-    // TODO: determine whether process.exit( ) is correct here -- maybe just close connection?
-    // process.exit();
-
 };
 
 module.exports = analyzePlayerRankings;
