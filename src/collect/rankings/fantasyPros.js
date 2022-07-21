@@ -1,12 +1,7 @@
 
-const puppeteer = require('puppeteer');
-const db = require('../../db/index.js');
 const Ranks = require('../../db/models/ranks.js');
 
-async function scrape(){
-    const browser = await puppeteer.launch({});
-    const page = await browser.newPage();
-
+async function scrape(page){
     // connect to rankings webpage
     await page.goto('https://www.fantasypros.com/nfl/fantasy-football-rankings/ppr-overall.php'); // PPR rankings
     
@@ -33,13 +28,11 @@ async function scrape(){
             rankFPPisapia: ranks[4]
         };
         
-        // Update Player in database with new rankings
-        // await Ranks.findOneAndUpdate({name: name, date: new Date(Date.now()).toDateString()}, playerUpdate, {upsert: true});
+        // Save Player in database with new rankings
         let ranksUpdate = new Ranks(playerUpdate);
         await ranksUpdate.save();
     }
-    process.exit();
+    console.log('Fantasy Pros rankings scraped...');
 }
 
-
-scrape();
+module.exports = scrape;

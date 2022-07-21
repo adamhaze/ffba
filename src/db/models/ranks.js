@@ -11,7 +11,13 @@ var RankSchema = new Schema({
     rankFPErickson: {type: Number, default: 0},
     rankFPFitz: {type: Number, default: 0},
     rankFPFreedman: {type: Number, default: 0},
-    rankFPPisapia: {type: Number, default: 0}
+    rankFPPisapia: {type: Number, default: 0},
+
+    rankYahooBehrens: {type: Number, default: 0}, // Yahoo rankings
+    rankYahooPianowski: {type: Number, default: 0},
+    rankYahooDelDon: {type: Number, default: 0},
+    rankYahooLoza: {type: Number, default: 0},
+    rankYahooHarmon: {type: Number, default: 0}
 });
 
 RankSchema.index({ '$**$': 'text' });

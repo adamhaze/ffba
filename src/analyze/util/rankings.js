@@ -4,6 +4,9 @@ var RanksTracker = require('../../db/models/ranksTracker.js');
 
 async function analyzePlayerRankings(query){
 
+    // TODO: only compute change in rankings if rank > 0, else use a filler
+    // TODO: incorporate new rankings (yahoo)
+
     await Ranks.find(query).then(async function(response){
         let n = response.length-1;
         if (n >= 0){
