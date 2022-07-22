@@ -27,4 +27,4 @@ async function email (body){
     });
 }
 
-email('wassssupppp');
+module.exports = email;
