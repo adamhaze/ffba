@@ -4,6 +4,8 @@ var fantasyPros = require('./fantasyPros.js');
 var yahoo = require('./yahoo.js');
 var Ranks = require('../../db/models/ranks.js');
 
+// TODO: export this function
+
 async function driver() {
 
     await Ranks.deleteMany({});

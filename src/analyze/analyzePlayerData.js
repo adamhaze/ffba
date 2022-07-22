@@ -1,6 +1,3 @@
-// TODO: separate backend process to run after getPlayerData 
-//      which checks each unique player by "id" and computes changes in
-//      projections and/or ADP
 
 var db = require('../db/index.js');
 var StatTracker = require('../db/models/statTracker.js');

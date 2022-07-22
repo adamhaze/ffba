@@ -1,9 +1,11 @@
-// import Client from 'espn-fantasy-football-api/node.js'; // node
-// import Player from '../db/models/player.js';
-// import db from '../db/index.js';
-const Client = require('espn-fantasy-football-api/node');
+
+var Client = require('espn-fantasy-football-api/node');
 var Player = require('../../db/models/player.js');
 var db = require('../../db/index.js');
+
+// TODO: turn this to an async function that gets exported
+// TODO: change 'espn' directory to 'stats'
+// TODO: make single driver file in 'collect' that calls getPlayerData and the rankings driver
 
 // init client to get data from ESPN api
 const myClient = new Client.Client({ leagueId: 1807663261 });
