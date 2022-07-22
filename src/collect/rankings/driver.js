@@ -8,7 +8,7 @@ var Ranks = require('../../db/models/ranks.js');
 
 async function driver() {
 
-    await Ranks.deleteMany({});
+    // await Ranks.deleteMany({});
 
     const browser = await puppeteer.launch({});
     const page = await browser.newPage();
