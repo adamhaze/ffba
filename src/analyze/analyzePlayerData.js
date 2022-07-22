@@ -17,7 +17,6 @@ async function analyzePlayerData(){
         let player = playerList[i].split(',');
         // let query = {'name': player[0], 'playerId': parseInt(player[1].trim())};
         let query = {name: player[0], date: new Date(Date.now()).toDateString()};
-        console.log(query.name);
         await analyzePlayerStats(query);
         await analyzePlayerRanks(query);
     };
