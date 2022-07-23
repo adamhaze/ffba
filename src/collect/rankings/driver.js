@@ -6,7 +6,7 @@ var Ranks = require('../../db/models/ranks.js');
 
 // TODO: export this function
 
-async function driver() { s
+async function driver() {
 
     const browser = await puppeteer.launch({});
     const page = await browser.newPage();
