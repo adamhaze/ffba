@@ -18,4 +18,4 @@ async function driver() {
 
 };
 
-driver();
+module.exports = driver;
