@@ -7,4 +7,4 @@ let ESPNleagueId = 1807663261;
 (async () => {
     await stats(ESPNleagueId);
     await rankings();
-})()
+})();
