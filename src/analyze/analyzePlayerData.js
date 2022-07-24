@@ -2,7 +2,7 @@
 var db = require('../db/index.js');
 var StatTracker = require('../db/models/statTracker.js');
 var RanksTracker = require('../db/models/ranksTracker.js');
-var playerList = require('../collect/espn/util/playerList.js');
+var playerList = require('../collect/stats/util/playerList.js');
 var analyzePlayerStats = require('./util/stats.js');
 var analyzePlayerRanks = require('./util/rankings.js');
 
