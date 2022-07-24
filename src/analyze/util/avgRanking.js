@@ -8,6 +8,7 @@ async function computeAvgRankings(query) {
     let fullQuery = {name: query.name, date: new Date(Date.now()).toDateString()};
     await Ranks.find(fullQuery).then(async function (response){
 
+        // TODO: check to see that values is correct here (on desktop)
         let values = Object.values(Object.values(response[0])[2]);
         values = values.slice(4,values.length-1);
         let avgRank = values.reduce((a,b) => a + b) / values.length;
