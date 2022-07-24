@@ -5,6 +5,7 @@ var RanksTracker = require('../db/models/ranksTracker.js');
 var playerList = require('../collect/stats/util/playerList.js');
 var analyzePlayerStats = require('./util/stats.js');
 var analyzePlayerRanks = require('./util/rankings.js');
+var computeAvgRankings = require('./util/avgRanking.js');
 
 
 async function analyzePlayerData(){
@@ -17,6 +18,7 @@ async function analyzePlayerData(){
         let query = {name: player[0]};
         await analyzePlayerStats(query);
         await analyzePlayerRanks(query);
+        await computeAvgRankings(query);
     };
     process.exit();
 };

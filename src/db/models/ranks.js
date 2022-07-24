@@ -17,7 +17,9 @@ var RankSchema = new Schema({
     rankYahooPianowski: {type: Number, default: 0},
     rankYahooDelDon: {type: Number, default: 0},
     rankYahooLoza: {type: Number, default: 0},
-    rankYahooHarmon: {type: Number, default: 0}
+    rankYahooHarmon: {type: Number, default: 0},
+
+    avg: {type: Number, default: 0}
 });
 
 RankSchema.index({ '$**$': 'text' });
