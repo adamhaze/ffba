@@ -3,6 +3,7 @@
 const mongoose = require('mongoose');
 let MONGO_URL;
 const MONGO_LOCAL_URL = 'mongodb://localhost:27017/fantasyfb';
+// const MONGO_LOCAL_URL = 'mongodb://localhost:27017/testing';
 
 
 // Connect to the database
