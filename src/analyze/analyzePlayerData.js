@@ -13,8 +13,6 @@ async function analyzePlayerData(){
     await RanksTracker.deleteMany({});
     for(var i=0; i < playerList.length; i++){
         let player = playerList[i].split(',');
-        // let query = {'name': player[0], 'playerId': parseInt(player[1].trim())};
-        // let query = {name: player[0], date: new Date(Date.now()).toDateString()};
         let query = {name: player[0]};
         await analyzePlayerStats(query);
         await analyzePlayerRanks(query);
