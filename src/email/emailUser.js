@@ -3,6 +3,8 @@ const credentials = require('./credentials');
 var rankingsDiff = require('../analyze/custom/rankingsDiff.js');
 var adpChange = require('../analyze/custom/adpChange.js');
 
+// Message formatting:
+// https://nodemailer.com/message/
 
 async function email (spread, numPlayers, rise, fall){
     var transporter = nodemailer.createTransport({
