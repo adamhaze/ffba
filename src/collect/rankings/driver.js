@@ -10,6 +10,7 @@ async function driver() {
 
     const browser = await puppeteer.launch({});
     const page = await browser.newPage();
+    await page.setDefaultNavigationTimeout(0);
 
     await fantasyPros(page);
     await yahoo(page);
