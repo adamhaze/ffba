@@ -11,6 +11,7 @@ var computeAvgRankings = require('./util/avgRanking.js');
 async function analyzePlayerData(){
     await StatTracker.deleteMany({});
     await RanksTracker.deleteMany({});
+    // TODO: solve issue with playerList name != rankings names (e.g. Patrick Mahomes and Defenses)
     for(var i=0; i < playerList.length; i++){
         let player = playerList[i].split(',');
         let query = {name: player[0]};
