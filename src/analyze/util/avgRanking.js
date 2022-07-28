@@ -12,6 +12,7 @@ async function computeAvgRankings(query) {
         if (response.length > 0) { // only if player exists in database
             let values = Object.values(Object.values(response[0])[2]);
             values = values.filter(elem => typeof elem === 'number');
+            // TODO: make class variable for number of 'expert' rankers
             values = values.filter(elem => elem > 0).slice(0,10); // only works for 1st 10 attributes = ranks
             let avgRank = values.reduce((a,b) => a + b) / values.length;
             
