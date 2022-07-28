@@ -16,6 +16,8 @@ async function analyzePlayerRankings(query){
                 rankFPFreedman: (response[0].rankFPFreedman > 0 && response[n].rankFPFreedman > 0) ? (response[0].rankFPFreedman - response[n].rankFPFreedman) : 0,
                 rankFPPisapia: (response[0].rankFPPisapia > 0 && response[n].rankFPPisapia > 0) ? (response[0].rankFPPisapia - response[n].rankFPPisapia) : 0,
 
+                // TODO: shouldn't be checking rank...1day, should be checking response[n] vs response[n-1]
+                //       The 1day ranking updates are wrong and need to be corrected
                 rankFPBrown1day: (n >= 1 && response[0].rankFPBrown1day > 0 && response[n].rankFPBrown1day > 0) ? (response[0].rankFPBrown1day - response[n].rankFPBrown1day) : 0,
                 rankFPErickson1day: (n >= 1 && response[0].rankFPErickson1day > 0 && response[n].rankFPErickson1day > 0) ? (response[0].rankFPErickson1day - response[n].rankFPErickson1day) : 0,
                 rankFPFitz1day: (n >= 1 && response[0].rankFPFitz1day > 0 && response[n].rankFPFitz1day > 0) ? (response[0].rankFPFitz1day - response[n].rankFPFitz1day) : 0,
