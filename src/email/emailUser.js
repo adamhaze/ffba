@@ -84,6 +84,10 @@ async function email (spread, numPlayers, rise, fall){
     });
 }
 
+// TODO: email 4 top 100 should be 2 columns (each w/ 2 sub columns):
+//  1 sorted by avg rank (and the rank), and 1 sorted by ADP
+    // table headers? html columns?
+
 
 let numPlayers = 150;
 (async () => {
