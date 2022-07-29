@@ -2,6 +2,11 @@
 var Ranks = require('../../db/models/ranks.js');
 const {players, nameMap} = require('../stats/util/playerList.js');
 
+// TODO: make scrape function that takes a url and returns a playerUpdate object or something
+//      this would combine fantasyPros and yahoo into one file (scraping function) + driver file
+//      the driver file set up will make it way easier to handle scraping additional websites in one place
+
+
 async function scrape(page){
     // connect to rankings webpage
     await page.goto('https://www.fantasypros.com/nfl/fantasy-football-rankings/ppr-overall.php'); // PPR rankings
@@ -11,9 +16,7 @@ async function scrape(page){
         let nameQuery = await page.waitForSelector(`#ranking-table > tbody > tr:nth-child(${i}) > td.player__cell.sticky-cell.sticky-cell-two > div > div.player__name > span.everything-but-mobile.js-sort-field`);
         var name = await page.evaluate(nameQuery => nameQuery.textContent, nameQuery);
         if (players.indexOf(name) === -1){
-            if (nameMap[name] == undefined){
-                console.log(name);
-            }
+            if (nameMap[name] == undefined){ continue; }
             name = nameMap[name];
         }
 

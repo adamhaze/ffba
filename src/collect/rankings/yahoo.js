@@ -16,6 +16,13 @@ async function scrape(page){
     for (var i=1; i <= numPlayers; i++){
         let nameQuery = await page.waitForSelector(`#fpPosTable > tbody > tr:nth-child(${i}) > td.fp-player-name-cell > a:nth-child(1)`);
         var name = await page.evaluate(nameQuery => nameQuery.textContent, nameQuery);
+        if (players.indexOf(name) === -1){
+            if (nameMap[name] == undefined){ 
+                console.log(name);
+                continue; 
+            }
+            name = nameMap[name];
+        }
 
         let ranks = new Array(5);
         for (var j=3; j <= 7; j++){
