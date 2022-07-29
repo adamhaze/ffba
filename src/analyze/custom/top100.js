@@ -1,15 +1,23 @@
-var db = require('../../db/index.js');
-var Ranks = require('../../db/models/ranks.js');
+const db = require('../../db/index.js');
+const Ranks = require('../../db/models/ranks.js');
+const Players = require('../../db/models/player.js');
 
-// TODO: return players sorted in order of avg ranking 
-// and sorted by ADP for comparison (bool-triggered)
-async function getTop100() {
+async function getTop100(ADP) {
     let query = {date: new Date(Date.now()).toDateString()};
-    let response = await Ranks.find(query).sort({avg: 1}); // response[0] = highest avg rank
-    for (var i=0; i < response.length; i++){
-        console.log(response[i].name, ' ', response[i].avg);
+    if (ADP){
+        var response = await Players.find(query).sort({ADP: 1});
+    } else {
+        var response = await Ranks.find(query).sort({avg: 1}); // response[0] = highest avg rank
     }
-    
+    let top100 = {};
+    for (var i=0; i < 100; i++){
+        if (ADP){
+            top100[response[i].name] = response[i].ADP;
+        } else {
+            top100[response[i].name] = response[i].avg;
+        }
+    }
+    return top100;
 }
 
-getTop100();
+module.exports = getTop100;
