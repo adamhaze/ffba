@@ -2,19 +2,17 @@
 var db = require('../db/index.js');
 var StatTracker = require('../db/models/statTracker.js');
 var RanksTracker = require('../db/models/ranksTracker.js');
-var playerList = require('../collect/stats/util/playerList.js');
 var analyzePlayerStats = require('./util/stats.js');
 var analyzePlayerRanks = require('./util/rankings.js');
 var computeAvgRankings = require('./util/avgRanking.js');
+const {players, nameMap} = require('../collect/stats/util/playerList.js');
 
 
 async function analyzePlayerData(){
     await StatTracker.deleteMany({});
     await RanksTracker.deleteMany({});
-    // TODO: solve issue with playerList name != rankings names (e.g. Patrick Mahomes and Defenses)
-    for(var i=0; i < playerList.length; i++){
-        let player = playerList[i].split(',');
-        let query = {name: player[0]};
+    for(var i=0; i < players.length; i++){
+        let query = {name: players[i]};
         await analyzePlayerStats(query);
         await analyzePlayerRanks(query);
         await computeAvgRankings(query);

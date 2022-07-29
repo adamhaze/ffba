@@ -3,6 +3,9 @@
 // https://sports.yahoo.com/fantasy-football-draft-rankings-for-2022-nfl-season-142617825.html
 // const puppeteer = require('puppeteer');
 const Ranks = require('../../db/models/ranks.js');
+const {players, nameMap} = require('../stats/util/playerList.js');
+
+// TODO: implement name mapping
 
 async function scrape(page){
     // connect to rankings webpage
