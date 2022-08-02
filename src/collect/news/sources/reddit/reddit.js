@@ -13,6 +13,12 @@ const r = new snoowrap({
 
 async function getNews(){
 
+    // TODO: only want to get new posts from current day
+    // TODO: for each post, check against all user's players OR
+    //       query all posts for 1 player at a time (may be easier to build list of urls per player)
+    // query all players 1 post at a time: build object of {player name: [list of urls]}
+    //      appending to lists in JS?
+
     var newPosts = await r.getSubreddit(subreddits[0]).getNew({limit: 50});
     console.log(newPosts);
     
