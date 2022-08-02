@@ -72,7 +72,8 @@ async function email (spread, numPlayers, rise, fall){
                     <li> ${fall[7]}  </li> 
                     <li> ${fall[8]}  </li> 
                     <li> ${fall[9]}  </li> 
-                </ol>`
+                </ol>
+                `
     };
       
     transporter.sendMail(mailOptions, function(error, info){
@@ -87,6 +88,7 @@ async function email (spread, numPlayers, rise, fall){
 // TODO: email 4 top 100 should be 2 columns (each w/ 2 sub columns):
 //  1 sorted by avg rank (and the rank), and 1 sorted by ADP
     // table headers? html columns?
+// https://stackoverflow.com/questions/40413048/creating-html-table-from-json-data/40419978#40419978
 
 
 let numPlayers = 150;
