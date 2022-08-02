@@ -9,3 +9,6 @@ const r = new snoowrap({
     username: credentials.username,
     password: credentials.password
 });
+var newPosts = r.getSubreddit('fantasyfootball').getNew({limit: 50}).then(async function (response){
+    console.log(response.length);
+});
