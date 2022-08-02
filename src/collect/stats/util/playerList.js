@@ -46,7 +46,8 @@ diffNameMap = {
     "Las Vegas Raiders": "Raiders D/ST",
     "Atlanta Falcons": "Falcons D/ST",
     "Houston Texans": "Texans D/ST",
-    "Isiah Pacheco": "Isaih Pacheco"
+    "Isiah Pacheco": "Isaih Pacheco",
+    "Gabe Davis": "Gabriel Davis"
 };
 
 module.exports = {
