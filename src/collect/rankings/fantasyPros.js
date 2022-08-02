@@ -11,7 +11,7 @@ async function scrape(page){
     // connect to rankings webpage
     await page.goto('https://www.fantasypros.com/nfl/fantasy-football-rankings/ppr-overall.php'); // PPR rankings
     // iterate through each player on rankings page
-    let numPlayersFP = 440;
+    let numPlayersFP = 400;
     for(var i=1; i <= numPlayersFP; i++){
         let nameQuery = await page.waitForSelector(`#ranking-table > tbody > tr:nth-child(${i}) > td.player__cell.sticky-cell.sticky-cell-two > div > div.player__name > span.everything-but-mobile.js-sort-field`);
         var name = await page.evaluate(nameQuery => nameQuery.textContent, nameQuery);
