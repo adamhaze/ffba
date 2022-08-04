@@ -13,19 +13,20 @@ const r = new snoowrap({
 
 async function getNews(){
 
-    // TODO: only want to get new posts from current day
+    // TODO: get all posts from current day
+    // TODO: look into marking which posts have been visited (or time scraped)
+    //          so you scrape all stories since last scraped
     // TODO: for each post, check against all user's players OR
     //       query all posts for 1 player at a time (may be easier to build list of urls per player)
     // query all players 1 post at a time: build object of {player name: [list of urls]}
     //      appending to lists in JS?
-
+    var numPosts = 50;
     var newPosts = await r.getSubreddit(subreddits[0]).getNew({limit: 50});
-    console.log(newPosts);
-    
-    
-    // r.getSubreddit('fantasyfootball').getNew({limit: 50}).then(async function (response){
-    //     console.log(response.length);
-    // });
+    for (var i=0; i < numPosts; i++){
+        // multiplied by 1000 so that the argument is in milliseconds, not seconds.
+        var date = new Date(newPosts[i].created_utc * 1000).toDateString();
+        console.log(date);
+    };
 
 };
 
