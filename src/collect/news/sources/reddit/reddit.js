@@ -13,6 +13,12 @@ const r = new snoowrap({
 
 async function getNews(){
 
+    // First, start w/ 10 posts and search for name in that post 
+    // - make sure it stores in the object correctly
+
+    // TODO: create new user directory in src
+    //          1 file that contains the default player news object {name: [list of urls]} - manually fill
+
     // TODO: get all posts from current day
     // TODO: look into marking which posts have been visited (or time scraped)
     //          so you scrape all stories since last scraped
