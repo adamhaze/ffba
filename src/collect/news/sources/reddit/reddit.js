@@ -2,6 +2,41 @@
 const snoowrap = require('snoowrap');
 const credentials = require('./credentials.js');
 
+
+const players = {
+    'Patrick Mahomes': [],
+    'Saquon Barkley': [],
+    'Clyde Edwards-Helaire': [],
+    'Davante Adams': [],
+    'Jaylen Waddle': [],
+    'Keenan Allen': [],
+    'Mark Andrews': [],
+    'AJ Dillon': [],
+    'Tyler Boyd': [],
+    'Derek Carr': [],
+    'Mitch Trubisky': [],
+    'James White': [],
+    'Melvin Gordon': [],
+    'Raheem Mostert': [],
+    'Matt Breida': [],
+    'Trey Sermon': [],
+    'DeAndre Hopkins': [],
+    'Odell Beckham': [],
+    'Robbie Anderson': [],
+    'N\'Keal Harry': [],
+    'Mecole Hardman': [],
+    'Jakobi Myers': [],
+    'Harrison Bryant': [],
+    'Tommy Tremble': [],
+    'Khalil Shakir': [],
+    'Danny Gray': [],
+    'Jameson Williams': [],
+    'Kenneth Walker': [],
+    'Treylon Burks': [],
+    'Chris Olave': [],
+    'Skyy Moore': []
+};
+
 const subreddits = ['fantasyfootball', 'Fantasy_Football', 'DynastyFF'];
 const r = new snoowrap({
     userAgent: 'something',
@@ -12,27 +47,26 @@ const r = new snoowrap({
 });
 
 async function getNews(){
-
-    // First, start w/ 10 posts and search for name in that post 
-    // - make sure it stores in the object correctly
-
-    // TODO: create new user directory in src
-    //          1 file that contains the default player news object {name: [list of urls]} - manually fill
-
-    // TODO: get all posts from current day
-    // TODO: look into marking which posts have been visited (or time scraped)
-    //          so you scrape all stories since last scraped
-    // TODO: for each post, check against all user's players OR
-    //       query all posts for 1 player at a time (may be easier to build list of urls per player)
-    // query all players 1 post at a time: build object of {player name: [list of urls]}
-    //      appending to lists in JS?
-    var numPosts = 50;
-    var newPosts = await r.getSubreddit(subreddits[0]).getNew({limit: 50});
-    for (var i=0; i < numPosts; i++){
-        // multiplied by 1000 so that the argument is in milliseconds, not seconds.
-        var date = new Date(newPosts[i].created_utc * 1000).toDateString();
-        console.log(date);
+    var numPosts = 500;
+    for (var j=0; j < subreddits.length; j++) {
+        var newPosts = await r.getSubreddit(subreddits[0]).getNew({limit: numPosts});
+        for (var i=0; i < numPosts; i++){
+            // multiplied by 1000 so that the argument is in milliseconds, not seconds.
+            var date = new Date(newPosts[i].created_utc * 1000).toDateString();
+            var text = newPosts[i].selftext;
+            // console.log(date);
+            // console.log(newPosts[i]);
+            for(const name of Object.keys(players)){
+                nameArr = name.split(" ");
+                if (text.includes(nameArr[0]) || text.includes(nameArr[1])){
+                    console.log(name);
+                    players[name].push(newPosts[i].url);
+                };
+            };
+        };
     };
+    
+    console.log(players);
 
 };
 
