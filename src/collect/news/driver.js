@@ -1,5 +1,9 @@
 // this script will run the news scrapers from multiple different sources
-reddit = require('./sources/reddit/reddit.js');
+const email = require('../../email/emailNews.js');
+const reddit = require('./sources/reddit/reddit.js');
 
-
-reddit();
+(async () => {
+    var players = await reddit();
+    console.log(players['Jameson Williams']);
+    email(players);
+})();

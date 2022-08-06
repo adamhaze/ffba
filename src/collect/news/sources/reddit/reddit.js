@@ -47,27 +47,24 @@ const r = new snoowrap({
 });
 
 async function getNews(){
-    var numPosts = 500;
+    var numPosts = 50;
     for (var j=0; j < subreddits.length; j++) {
-        var newPosts = await r.getSubreddit(subreddits[0]).getNew({limit: numPosts});
+        var newPosts = await r.getSubreddit(subreddits[j]).getNew({limit: numPosts});
         for (var i=0; i < numPosts; i++){
             // multiplied by 1000 so that the argument is in milliseconds, not seconds.
             var date = new Date(newPosts[i].created_utc * 1000).toDateString();
             var text = newPosts[i].selftext;
-            // console.log(date);
-            // console.log(newPosts[i]);
             for(const name of Object.keys(players)){
                 nameArr = name.split(" ");
                 if (text.includes(nameArr[0]) || text.includes(nameArr[1])){
-                    console.log(name);
-                    players[name].push(newPosts[i].url);
+                    if (!players[name].includes(newPosts[i].url)){
+                        players[name].push(newPosts[i].url);
+                    };
                 };
             };
         };
     };
-    
-    console.log(players);
-
+    return players;
 };
 
 
