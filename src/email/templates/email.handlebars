@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Daily Player News</title>
+</head>
+<body>
+    {{#each userPlayers}}
+      {{#if this}}
+        <h2>{{@key}}</h2>
+        {{#each this}}
+          <li>{{this}}</li>
+        {{/each}}   
+      {{/if}}
+    {{/each}}
+  </script>
+</body>
+</html>

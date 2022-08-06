@@ -1,6 +1,7 @@
 const nodemailer = require('nodemailer');
 const credentials = require('./credentials');
-
+const hbs = require('nodemailer-express-handlebars');
+const path = require('path');
 
 async function email (players){
     const names = Object.keys(players);
@@ -11,16 +12,32 @@ async function email (players){
           pass: credentials.pw
         }
       });
+
+    // point to the template folder
+    const handlebarOptions = {
+        viewEngine: {
+            partialsDir: path.resolve('./src/email/templates/'),
+            defaultLayout: false,
+        },
+        viewPath: path.resolve('./src/email/templates/'),
+    };
       
+    // use a template file with nodemailer
+    transporter.use('compile', hbs(handlebarOptions));
+
     var mailOptions = {
         from: credentials.email,
         to: credentials.email,
         subject: 'Daily Player News!',
-        html: `<h1> ${names[26]} </h1>
-                <ol>
-                    <li> ${players[names[26]][0]} </li> 
-                </ol>
-                `
+        template: 'email',
+        context: {
+            userPlayers: players
+        }
+        // html: `<h1> ${names[26]} </h1>
+        //         <ol>
+        //             <li> ${players[names[26]][0]} </li> 
+        //         </ol>
+        //         `
     };
       
     transporter.sendMail(mailOptions, function(error, info){

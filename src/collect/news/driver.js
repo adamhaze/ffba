@@ -4,6 +4,5 @@ const reddit = require('./sources/reddit/reddit.js');
 
 (async () => {
     var players = await reddit();
-    console.log(players['Jameson Williams']);
-    email(players);
+    var temp = await email(players);
 })();
