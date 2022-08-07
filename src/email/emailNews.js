@@ -20,8 +20,7 @@ async function email (players){
             defaultLayout: false,
         },
         viewPath: path.resolve('./src/email/templates/'),
-    };
-      
+    };      
     // use a template file with nodemailer
     transporter.use('compile', hbs(handlebarOptions));
 

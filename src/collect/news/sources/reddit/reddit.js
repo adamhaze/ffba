@@ -19,11 +19,15 @@ async function getNews(players){
             // multiplied by 1000 so that the argument is in milliseconds, not seconds.
             var date = new Date(newPosts[i].created_utc * 1000).toDateString();
             var text = newPosts[i].selftext;
+            var title = newPosts[i].title;
             for(const name of Object.keys(players)){
                 nameArr = name.split(" ");
-                if (text.includes(nameArr[0]) || text.includes(nameArr[1])){
-                    if (!players[name].includes(newPosts[i].url)){
-                        players[name].push(newPosts[i].url);
+                if (text.includes(nameArr[0]) || text.includes(nameArr[1]) || title.includes(nameArr[0]) || title.includes(nameArr[1])){
+                    // if (!players[name].includes(newPosts[i].url)){
+                    //     players[name].push(newPosts[i].url);
+                    // };
+                    if (!players[name][title]) {
+                        players[name][title] = newPosts[i].url;
                     };
                 };
             };
@@ -31,6 +35,7 @@ async function getNews(players){
     };
     return players;
 };
+
 
 
 module.exports = getNews;

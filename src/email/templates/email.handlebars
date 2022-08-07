@@ -10,10 +10,13 @@
       {{#if this}}
         <h2>{{@key}}</h2>
         {{#each this}}
-          <li>{{this}}</li>
+          <li><a href="{{this}}">{{@key}}</a></li>
         {{/each}}   
       {{/if}}
     {{/each}}
   </script>
 </body>
 </html>
+
+
+
