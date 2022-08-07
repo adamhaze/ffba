@@ -3,7 +3,6 @@ const email = require('../../email/emailNews.js');
 const reddit = require('./sources/reddit/reddit.js');
 
 var players = {
-    'Patrick Mahomes': [],
     'Saquon Barkley': [],
     'Clyde Edwards-Helaire': [],
     'Davante Adams': [],
@@ -33,7 +32,14 @@ var players = {
     'Kenneth Walker': [],
     'Treylon Burks': [],
     'Chris Olave': [],
-    'Skyy Moore': []
+    'Skyy Moore': [],
+    'Drake London': [],
+    'Trevor Lawrence': [],
+    'Courtland Sutton': [],
+    'DK Metcalf': [],
+    'Noah Fant': [],
+    'James Robinson': [],
+    'Rhamondre Stevenson': []
 };
 
 (async () => {
