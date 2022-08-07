@@ -2,41 +2,6 @@
 const snoowrap = require('snoowrap');
 const credentials = require('./credentials.js');
 
-
-const players = {
-    'Patrick Mahomes': [],
-    'Saquon Barkley': [],
-    'Clyde Edwards-Helaire': [],
-    'Davante Adams': [],
-    'Jaylen Waddle': [],
-    'Keenan Allen': [],
-    'Mark Andrews': [],
-    'AJ Dillon': [],
-    'Tyler Boyd': [],
-    'Derek Carr': [],
-    'Mitch Trubisky': [],
-    'James White': [],
-    'Melvin Gordon': [],
-    'Raheem Mostert': [],
-    'Matt Breida': [],
-    'Trey Sermon': [],
-    'DeAndre Hopkins': [],
-    'Odell Beckham': [],
-    'Robbie Anderson': [],
-    'N\'Keal Harry': [],
-    'Mecole Hardman': [],
-    'Jakobi Myers': [],
-    'Harrison Bryant': [],
-    'Tommy Tremble': [],
-    'Khalil Shakir': [],
-    'Danny Gray': [],
-    'Jameson Williams': [],
-    'Kenneth Walker': [],
-    'Treylon Burks': [],
-    'Chris Olave': [],
-    'Skyy Moore': []
-};
-
 const subreddits = ['fantasyfootball', 'Fantasy_Football', 'DynastyFF'];
 const r = new snoowrap({
     userAgent: 'something',
@@ -46,7 +11,7 @@ const r = new snoowrap({
     password: credentials.password
 });
 
-async function getNews(){
+async function getNews(players){
     var numPosts = 50;
     for (var j=0; j < subreddits.length; j++) {
         var newPosts = await r.getSubreddit(subreddits[j]).getNew({limit: numPosts});

@@ -2,7 +2,41 @@
 const email = require('../../email/emailNews.js');
 const reddit = require('./sources/reddit/reddit.js');
 
+var players = {
+    'Patrick Mahomes': [],
+    'Saquon Barkley': [],
+    'Clyde Edwards-Helaire': [],
+    'Davante Adams': [],
+    'Jaylen Waddle': [],
+    'Keenan Allen': [],
+    'Mark Andrews': [],
+    'AJ Dillon': [],
+    'Tyler Boyd': [],
+    'Derek Carr': [],
+    'Mitch Trubisky': [],
+    'James White': [],
+    'Melvin Gordon': [],
+    'Raheem Mostert': [],
+    'Matt Breida': [],
+    'Trey Sermon': [],
+    'DeAndre Hopkins': [],
+    'Odell Beckham': [],
+    'Robbie Anderson': [],
+    'N\'Keal Harry': [],
+    'Mecole Hardman': [],
+    'Jakobi Myers': [],
+    'Harrison Bryant': [],
+    'Tommy Tremble': [],
+    'Khalil Shakir': [],
+    'Danny Gray': [],
+    'Jameson Williams': [],
+    'Kenneth Walker': [],
+    'Treylon Burks': [],
+    'Chris Olave': [],
+    'Skyy Moore': []
+};
+
 (async () => {
-    var players = await reddit();
+    players = await reddit(players);
     var temp = await email(players);
 })();
