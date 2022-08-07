@@ -42,7 +42,9 @@ var players = {
     'Rhamondre Stevenson': {}
 };
 
-(async () => {
+async function collectNews(){
     players = await reddit(players);
     var temp = await email(players);
-})();
+};
+
+module.exports = collectNews;

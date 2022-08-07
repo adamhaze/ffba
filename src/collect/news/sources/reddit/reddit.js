@@ -12,7 +12,7 @@ const r = new snoowrap({
 });
 
 async function getNews(players){
-    var numPosts = 50;
+    var numPosts = 100;
     for (var j=0; j < subreddits.length; j++) {
         var newPosts = await r.getSubreddit(subreddits[j]).getNew({limit: numPosts});
         for (var i=0; i < numPosts; i++){
@@ -22,7 +22,7 @@ async function getNews(players){
             var title = newPosts[i].title;
             for(const name of Object.keys(players)){
                 nameArr = name.split(" ");
-                if (text.includes(nameArr[0]) || text.includes(nameArr[1]) || title.includes(nameArr[0]) || title.includes(nameArr[1])){
+                if (text.includes(" "+nameArr[0]+" ") || text.includes(" "+nameArr[1]+" ") || title.includes(" "+nameArr[0]+" ") || title.includes(" "+nameArr[1]+" ")){
                     // if (!players[name].includes(newPosts[i].url)){
                     //     players[name].push(newPosts[i].url);
                     // };

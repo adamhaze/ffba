@@ -15,8 +15,6 @@ async function driver() {
     await fantasyPros(page);
     await yahoo(page);
 
-    process.exit();
-
 };
 
 module.exports = driver;

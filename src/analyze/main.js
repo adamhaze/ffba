@@ -6,6 +6,7 @@ var analyzePlayerStats = require('./util/stats.js');
 var analyzePlayerRanks = require('./util/rankings.js');
 var computeAvgRankings = require('./util/avgRanking.js');
 const {players, nameMap} = require('../collect/stats/util/playerList.js');
+const email = require('../email/emailStats.js');
 
 
 async function analyzePlayerData(){
@@ -17,9 +18,10 @@ async function analyzePlayerData(){
         await analyzePlayerRanks(query);
         await computeAvgRankings(query);
     };
-    process.exit();
+    await email();
+    // console.log('Data analyed...');
 };
-analyzePlayerData();
+module.exports = analyzePlayerData;
 
 
 

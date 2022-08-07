@@ -6,7 +6,14 @@ var adpChange = require('../analyze/custom/adpChange.js');
 // Message formatting:
 // https://nodemailer.com/message/
 
-async function email (spread, numPlayers, rise, fall){
+// TODO: make Handlebars template for this email
+
+const numPlayers = 150;
+
+async function email (){
+    let spread = await rankingsDiff(numPlayers);
+    let rise = await adpChange(true);
+    let fall = await adpChange(false);
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -18,7 +25,7 @@ async function email (spread, numPlayers, rise, fall){
     var mailOptions = {
         from: credentials.email,
         to: credentials.email,
-        subject: 'Sending Email using Node.js',
+        subject: 'Daily Player Rank/ADP Data',
         html: `<h1> 25 Players with Greatest Rankings Spread (Top ${numPlayers}) </h1>
                 <ol>
                     <li id="a0"> ${spread[0]} </li> 
@@ -81,21 +88,11 @@ async function email (spread, numPlayers, rise, fall){
             console.log(error);
         } else {
             console.log('Email sent: ' + info.response);
+            process.exit();
         }
     });
-}
+};
 
-// TODO: email 4 top 100 should be 2 columns (each w/ 2 sub columns):
-//  1 sorted by avg rank (and the rank), and 1 sorted by ADP
-    // table headers? html columns?
-// https://stackoverflow.com/questions/40413048/creating-html-table-from-json-data/40419978#40419978
+module.exports = email;
 
-
-let numPlayers = 150;
-(async () => {
-    let spread = await rankingsDiff(numPlayers);
-    let adpRise = await adpChange(true);
-    let adpFall = await adpChange(false);
-    email(spread, numPlayers, adpRise, adpFall);
-})()
 
