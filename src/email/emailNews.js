@@ -32,11 +32,6 @@ async function email (players){
         context: {
             userPlayers: players
         }
-        // html: `<h1> ${names[26]} </h1>
-        //         <ol>
-        //             <li> ${players[names[26]][0]} </li> 
-        //         </ol>
-        //         `
     };
       
     transporter.sendMail(mailOptions, function(error, info){

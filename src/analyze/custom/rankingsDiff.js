@@ -17,7 +17,7 @@ async function getRankingsDiff(numPlayers) {
         rankingsDiff[response[i].name] = diff;
     };
     let keysSorted = Object.keys(rankingsDiff).sort(function(a,b){return rankingsDiff[b]-rankingsDiff[a]});
-    return keysSorted;
+    return keysSorted.slice(0,25);
 };
 
 module.exports = getRankingsDiff;
