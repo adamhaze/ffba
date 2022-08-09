@@ -39,7 +39,11 @@ var players = {
     'DK Metcalf': {},
     'Noah Fant': {},
     'James Robinson': {},
-    'Rhamondre Stevenson': {}
+    'Rhamondre Stevenson': {},
+    'Ashton Dulin': {},
+    'George Pickens': {},
+    'Chase Claypool': {},
+    'Rachaad White': {}
 };
 
 async function collectNews(){
