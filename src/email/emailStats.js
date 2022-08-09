@@ -8,8 +8,6 @@ const path = require('path');
 // Message formatting:
 // https://nodemailer.com/message/
 
-// TODO: make Handlebars template for this email
-
 const numPlayers = 150;
 
 async function email (){
