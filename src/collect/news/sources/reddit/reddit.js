@@ -11,11 +11,19 @@ const r = new snoowrap({
     password: credentials.password
 });
 
+// TODO: implement query function for checking post title/text for player name
+//       include nicknames (i.e. CEH, ETN, Mandrews)
+//       handle common names (i.e. Williams, James, Jones, Matt, Allen)
+
+var usedUrls = [];
+
 async function getNews(players){
     var numPosts = 100;
     for (var j=0; j < subreddits.length; j++) {
         var newPosts = await r.getSubreddit(subreddits[j]).getNew({limit: numPosts});
         for (var i=0; i < numPosts; i++){
+            // skip post if we've already used it for another player
+            if (usedUrls.includes(newPosts[i].url)) { continue; }
             // multiplied by 1000 so that the argument is in milliseconds, not seconds.
             var date = new Date(newPosts[i].created_utc * 1000).toDateString();
             var text = newPosts[i].selftext;
@@ -28,6 +36,7 @@ async function getNews(players){
                     // };
                     if (!players[name][title]) {
                         players[name][title] = newPosts[i].url;
+                        usedUrls.push(newPosts[i].url);
                     };
                 };
             };
