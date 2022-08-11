@@ -37,6 +37,7 @@ async function getNews(players){
                     if (!players[name][title]) {
                         players[name][title] = newPosts[i].url;
                         usedUrls.push(newPosts[i].url);
+                        break;
                     };
                 };
             };
