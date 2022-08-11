@@ -6,6 +6,7 @@ var Schema = mongoose.Schema;
 var PlayerSchema = new Schema({
     name: { type: String },
     playerId: { type: Number },
+    position: {type: String, default: ' '},
     team: {  type: String  },
     ADP: {  type: Number  },
     owned: { type: Number },

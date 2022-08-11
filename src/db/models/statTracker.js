@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 
 var StatTrackerSchema = new Schema({
     name: { type: String },
+    position: { type: String, default: ' '},
     date: { type: String, default: new Date(Date.now()).toDateString() },
     ADPOvr: { type: Number, default: 0 },// change in ADP stats
     ADP1day: { type: Number, default: 0 },
