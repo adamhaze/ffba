@@ -2,6 +2,8 @@
 const email = require('../../email/emailNews.js');
 const reddit = require('./sources/reddit/reddit.js');
 
+// TODO: decouple email and collect, use db
+
 var players = {
     'Saquon Barkley': {},
     'Clyde Edwards-Helaire': {},
