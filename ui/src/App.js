@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import SplashPage from "./auth/SplashPage";
 import CallbackPage from "./auth/CallbackPage";
+import UserProfile from "./profile/UserProfile";
 
 const App = () => {
 
@@ -10,17 +11,9 @@ const App = () => {
     <Routes>
       <Route exact path="/" element={<SplashPage/>} />
       <Route exact path="/callback" element={<CallbackPage/>} />
+      <Route exact path="/profile" element={<UserProfile/>} />
     </Routes>
   );
-
-  // <Router>
-  // <div>
-  //   <Routes>
-  //     <Route exact path="/" element={<SplashPage/>} />
-  //     <Route exact path="/callback" element={<CallbackPage/>} />
-  //   </Routes>
-  // </div>
-  // </Router>;
 
 };
 
