@@ -1,4 +1,6 @@
 import './SplashPage.css';
+import { LoginButton } from './components/LoginButton';
+import { SignupButton } from './components/SignupButton';
 
 function SplashPage() {
 
@@ -10,6 +12,8 @@ function SplashPage() {
 				<div>
 					🍗
 				</div>
+				<LoginButton/>
+				<SignupButton/>
 			</header>
 		</div>
 	);
