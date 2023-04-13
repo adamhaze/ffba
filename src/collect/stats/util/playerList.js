@@ -1,6 +1,7 @@
 const fs = require('fs');
+const path = require('path');
 
-let espnPlayers = '/Users/adamhayes/ws_home/projects/fantasyfb-analysis/src/collect/stats/util/espn_player_ids.txt';
+const espnPlayers = path.resolve('./src/collect/stats/util/espn_player_ids.txt');
 let data = fs.readFileSync(espnPlayers, 'utf8');
 let playerList = data.split('\n');
 
